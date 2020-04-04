@@ -36,7 +36,7 @@ def main():
 
         # ERRORES
         # ver si son enteros
-
+    for (op, arg) in opt:
         if op == "-n":
             try:
                 num1 = int(arg)
@@ -57,7 +57,7 @@ def main():
                 print("NO INGRESO UNA OPERACION VALIDA [ + - / x]")
                 exit()
         # calculamos
-
+    for (op, arg) in opt:
         if op == "-o":
             if arg == "+":
                 print(num1, "+", num2, "=", num1 + num2)
