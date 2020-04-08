@@ -4,8 +4,9 @@ import getopt
 import subprocess
 import datetime
 
-def main():
 
+def main():
+    global opts
     try:
         (opts, args) = getopt.getopt(sys.argv[1:], 'c:f:l', [])
     except getopt.GetoptError as warning:
@@ -14,7 +15,11 @@ def main():
 
     if len(opts) != 3:
         print("no se ingreso la cantidad de parametros y argumentos correctos")
+        print("OPCIONES INGRESADAS: surge error >>>>>> ", opts)
+
         exit()
+    else:
+        print("OPCIONES INGRESADAS BIEN:>>>>>> ", opts)
 
     command = ""
     out_file = ""
@@ -24,7 +29,7 @@ def main():
             command = arg
         elif opt == '-f':
             out_file = open(arg, "a")
-        else:
+        elif opt == '-l':
             log_file = open(arg, "a")
     process = subprocess.Popen([command], stdout=out_file, stderr=subprocess.PIPE, shell=True, universal_newlines=True)
     error = process.communicate()[1]
