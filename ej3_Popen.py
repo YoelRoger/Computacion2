@@ -6,7 +6,7 @@ import datetime
 
 
 def main():
-    global opts
+
     try:
         (opts, args) = getopt.getopt(sys.argv[1:], 'c:f:l', [])
     except getopt.GetoptError as warning:
