@@ -24,12 +24,11 @@ def main():
     if pid1:
         # PADRE
         pid2 = os.fork()
-
         if pid2:
             while True:
                 signal.pause()
                 send_signal(pid2)
-            # HIJO 2
+                 # HIJO 2
         else:
             signal.signal(signal.SIGUSR1, handler_chld2)
             while True:
@@ -37,12 +36,13 @@ def main():
     else:
         # HIJO 1
         for i in range(10):
-            print("\n\n\n\n")
+            print("\n")
             ppid = os.getppid()
             send_signal(ppid)
             print("Soy el hijo1 con PID:", os.getpid(), "\nPING")
-            time.sleep(0.01)
+            time.sleep(5)
         print("TERMINANDO.")
+        os.kill(pid1, signal.SIGTERM)
 
 
 if __name__ == '__main__':
