@@ -13,7 +13,7 @@ def handlerUSR2(signal, frame):
 def main():
     (opts, args) = getopt.getopt(sys.argv[1:], 'p:', ['process='])
 
-    if len(opts) != 2:
+    if len(opts) != 1:
         print("no se ingreso la cantidad de parametros y argumentos correctos")
         exit()
 
