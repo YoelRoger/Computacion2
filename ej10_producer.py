@@ -1,18 +1,20 @@
+#!/usr/bin/python
 import sys
+import os
 
 
 def main():
     pipeInput = '/tmp/msm'
-    msm = sys.argv[1:]
+    msm = str(sys.argv[1:])
 
-    fifo = open(pipeInput, "w")
-    for line in msm:
-        fifo.write(line)
-    fifo.flush()
-    fifo.close()
-    print("msm en p: ")
-    for line in sys.argv[1:]:
-        print(line)
+    fifo_file = open(pipeInput, "w")
+    fifo_file.write(msm)
+    fifo_file.flush()
+    fifo_file.close()
+    print("msm en fifo:" + msm)
+
+    if not os.path.exists(pipeInput):
+        os.mkfifo(pipeInput)
 
 
 if __name__ == '__main__':
