@@ -66,10 +66,7 @@ while True:
     msg = 'exit'
     try:
         print("SENDING EXIT")
-        # Set the whole string
-        s.sendto(msg, (host, port))
-
-        # receive data from client (data, addr)
+        s.send(msg)
         respuesta = s.recv(1024)
 
         print('RESPUESTA DEL SV: ' + respuesta.decode("ascii"))
