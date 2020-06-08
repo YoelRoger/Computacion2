@@ -8,6 +8,7 @@ def getOp():
         return opts
     except getopt.GetoptError as error:
         print("COULD'T SUCCEED ERROR:", str(error))
+        exit()
 
 
 def socketStructure(host, port, protocol):
@@ -29,29 +30,35 @@ def socketStructure(host, port, protocol):
                 if msgin == 'exit' or msgin == 'EXIT':
                     s.close()
                     break
-    elif protocol == 'udp' or protocol=='UDP':
+            except EOFError:
+                break
+    elif protocol == 'udp' or protocol == 'UDP':
         print("UDP PROTOCOL SELECTED")
         try:
-            s=socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+            s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         except socket.error:
             print('FAILED TO CREATE SOCKET')
             exit()
         while True:
-            msgin=input("ENTER MESSAGE...:").encode()
-            s.sendto(msgin,(host,port))
+            msgin = input("ENTER MESSAGE...:").encode()
+            s.sendto(msgin, (host, port))
             if msgin.decode() == 'exit':
                 s.close()
                 break
     else:
         print("PROTOCOL NOT RECOGNISED PLEASE ENTER 'UDP' OR 'TCP'")
+
+
 def main():
     options = getOp()
-    for (opts,args) in options:
+    for (opts, args) in options:
         if opts == '-p':
-            port=int(args)
+            port = int(args)
         if opts == '-t':
-            protocol= args
+            protocol = args
         if opts == '-a':
             host = args
-    socketStructure(host,port,protocol)
+    socketStructure(host, port, protocol)
+
+
 main()
