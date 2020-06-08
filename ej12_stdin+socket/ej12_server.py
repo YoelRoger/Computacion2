@@ -20,7 +20,7 @@ def main():
         if opts == '-f':
             pathfile = arg
 
-    def createSocket(port, protocol, pathfile):
+    def socketStructure(port, protocol, pathfile):
         port = port
         protocol = protocol
         file = pathfile
@@ -33,6 +33,7 @@ def main():
             serversocket.listen(5)
             print('SERVER LISTENING ...')
             clientsocket, addr = serversocket.accept()
+
             while True:
                 f = open(file, "a")
                 d = clientsocket.recv(1024)
@@ -50,23 +51,24 @@ def main():
             host = ""
             serversocket.bind((host, port))
             print('SERVER LISTENING ...')
+
             while True:
                 f = open(file, "a")
                 d, addr = serversocket.recvfrom(1024)
                 f.write(d.decode("ascii") + '\n')
                 address = addr[0]
                 port = addr[1]
+
                 if d == "" or len(d) == 0:
                     print('Exiting...')
                     break
                 print("Address: %s - Port %d" % (address, port))
                 print("Received correctly: " + d.decode("ascii"))
 
-
         else:
             print("PROTOCOL NOT RECOGNISED PLEASE ENTER 'UDP' OR 'TCP'")
 
-    createSocket(port, protocol, pathfile)
+    socketStructure(port, protocol, pathfile)
 
  main()
 
