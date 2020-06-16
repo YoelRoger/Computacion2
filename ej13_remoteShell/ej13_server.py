@@ -1,4 +1,4 @@
-import subprocess , socket, getopt, sys
+import subprocess, socket, getopt, sys
 
 
 def main():
@@ -8,7 +8,7 @@ def main():
             port = arg
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     host = ""
-    port = 8200
+    port = 8000
     s.bind((host, port))
     s.listen(5)
     print("SERVER LISTENING ...")
