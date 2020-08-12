@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import socket, getopt
 from sys import argv
 
@@ -32,13 +33,15 @@ def main():
 
         while True:
             d = clientsocket.recv(1024)
-            recived = d.decode("ascii") + '\n'
+            recived = (d.decode("ascii"))
             msgReversed = invertMsg(recived)
-            socket.send(msgReversed.encode('assci'))
+            serversocket.send(msgReversed.encode('assci'))
             print("Address: %s " % str(addr))
             print("Received correctly: " + d.decode("ascii"))
 
     socketStructure(port)
 
- main()
+
+if __name__ == '__main__':
+    main()
 

@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import socket, getopt
 from sys import argv, exit, stdin
 
