@@ -1,48 +1,42 @@
-#!/usr/bin/python
+#!/usr/bin/python3
+
 import getopt
 import socket
 from sys import argv
+import multiprocessing
+
+
+def invert_message(client_socket, address):
+    while True:
+        data = client_socket.recv(1024)
+        received = data.decode()
+        if received == "":
+            break
+        msg_reversed = received[::-1]
+        client_socket.send(msg_reversed.encode())
+        print("Address: %s " % str(address), "Received correctly: " + data.decode())
 
 
 def main():
 
     port = None
 
-    def get_op():
-        try:
-            (opts, args) = getopt.getopt(argv[1:], 'p:', [])
-            return opts
-        except getopt.GetoptError as error:
-            print("COULD'T SUCCEED :C ERROR>>>", str(error))
-            exit()
+    (options, args) = getopt.getopt(argv[1:], 'p:', [])
 
-    options = get_op()
     for (opts, arg) in options:
         if opts == '-p':
             port = int(arg)
 
-    def invert_msg(cadena):
-        return cadena[::-1]
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    host = ""
+    server_socket.bind((host, port))
+    server_socket.listen(5)
+    print('SERVER LISTENING ...')
 
-    def socket_structure(selected_port):
-        selected_port = selected_port
-
-        serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        host = ""
-        serversocket.bind((host, selected_port))
-        serversocket.listen(5)
-        print('SERVER LISTENING ...')
-        clientsocket, addr = serversocket.accept()
-
-        while True:
-            d = clientsocket.recv(1024)
-            recived = (d.decode("ascii"))
-            msg_reversed = invert_msg(recived)
-            serversocket.send(msg_reversed.encode('assci'))
-            print("Address: %s " % str(addr))
-            print("Received correctly: " + d.decode("ascii"))
-
-    socket_structure(port)
+    while True:
+        client_socket, address = server_socket.accept()
+        cliet = multiprocessing.Process(target=invert_message, args= (client_socket,address))
+        cliet.start()
 
 
 if __name__ == '__main__':
