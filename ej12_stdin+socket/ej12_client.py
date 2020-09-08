@@ -26,7 +26,7 @@ def socketStructure(host, port, protocol):
         while True:
             try:
                 msgin = input('ENTER MESSAGE ...: ')
-                s.send(msgin.encode('assci'))
+                s.send(msgin.encode('ascii'))
                 if msgin == 'exit' or msgin == 'EXIT':
                     s.close()
                     break

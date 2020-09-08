@@ -3,7 +3,7 @@ from sys import argv
 
 
 def main():
-    def getOp():
+    def get_op():
         try:
             (opts, args) = getopt.getopt(argv[1:], 'p:t:f', [])
             return opts
@@ -11,7 +11,7 @@ def main():
             print("COULD'T SUCCEED ERROR:", str(error))
             exit()
 
-    options = getOp()
+    options = get_op()
     for (opts, arg) in options:
         if opts == '-p':
             port = int(arg)
@@ -20,7 +20,8 @@ def main():
         if opts == '-f':
             pathfile = arg
 
-    def socketStructure(port, protocol, pathfile):
+
+    def socket_structure(port, protocol, pathfile):
         port = port
         protocol = protocol
         file = pathfile
@@ -68,7 +69,7 @@ def main():
         else:
             print("PROTOCOL NOT RECOGNISED PLEASE ENTER 'UDP' OR 'TCP'")
 
-    socketStructure(port, protocol, pathfile)
+    socket_structure(port, protocol, pathfile)
 
  main()
 
