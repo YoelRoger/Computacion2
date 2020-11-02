@@ -11,7 +11,7 @@ threading = False
 
 def getOpts():
     try:
-        (opts, args) = getopt.getopt(sys.argv[1:], 'p:mt', [])
+        (opts, args) = getopt.getopt(sys.argv[1:], 'p:m:t', [])
         return opts
     except getopt.GetoptError as err:
         print('Error: ' + str(err))
